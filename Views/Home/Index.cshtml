@@ -1,0 +1,122 @@
+﻿<body>
+    <div class="container">
+        <h1>Image Recognition Demo</h1>
+        <form>
+            <h2>Upload Image</h2>
+            <input id="photo" type="file" name="photo" />
+            <br />
+            <img src="" id="preview">
+            <br />
+            <br />
+            <input id="submit" type="button" value="Submit" name="Predict" />
+            <input id="submit2" type="button" value="ImageToText" name="ImageToText" />
+            <br />
+            <br />
+            <div id="loader" style="margin-top:10px; display:none;"role="status">
+                <img src="~/Scripts/ajax-loader.gif" />
+            </div>
+            <p id="link"></p>
+            <br />
+            <p id="link2"></p>
+        </form>
+    </div>
+</body>
+
+@section scripts {
+
+    <script type="text/javascript">
+
+        //Ajax Function for Clarifai API Call
+        $(document).ready(function () {
+            $('#submit').click(function () {
+                var data = new FormData();
+                var imageFile = document.getElementById("photo").files[0];
+                data.append('photo', imageFile);
+                $.ajax({
+                    url: '/api/clarifai',
+                    processData: false,
+                    contentType: false,
+                    data: data,
+                    method: "POST",
+                    dataType: "json",
+                    //Before sending request, show the loader
+                    beforeSend: function () {
+                        $("#loader").show();
+                    },
+                    //When request is completed, hide loader
+                    complete: function () {
+                        $("#loader").hide();
+                    },
+                    //Display data when successful
+                    success: function (result) {
+                        $('#link').text(result);
+                    },
+                    //Display error message for errors.
+                    error: function () {
+                        $('#link').html("Failed to fetch api data");
+                    }
+
+                });
+            });
+        });
+
+        //Ajax Function for ComputerVision API 
+        $(document).ready(function () {
+            $('#submit2').click(function () {
+                var data = new FormData();
+                var imageFile = document.getElementById("photo").files[0];
+                data.append('photo', imageFile);
+                $.ajax({
+                    url: '/api/computervision',
+                    processData: false,
+                    contentType: false,
+                    data: data,
+                    method: "POST",
+                    dataType: "json",
+                    //Before sending request, show the loader
+                    beforeSend: function () {
+                        $("#loader").show();
+                    },
+                     //When request is completed, hide loader
+                    complete: function () {
+                        $("#loader").hide();
+                    },
+                    //Display data when successful
+                    success: function (result) {
+                        $('#link2').text(result);
+                    },
+                    //Display error message for errors.
+                    error: function () {
+                        $('#link2').html("Failed to fetch api data");
+                    }
+
+                });
+                });
+            });
+
+        //Preview the image for review after upload
+        var fileTag = document.getElementById("photo"),
+            preview = document.getElementById("preview");
+
+        //Listen to event and call changeImage Function
+        fileTag.addEventListener("change", function () {
+            changeImage(this);
+        });
+
+        //Change function to change image preview
+        function changeImage(input) {
+            var reader;
+
+            if (input.files && input.files[0]) {
+                reader = new FileReader();
+
+                reader.onload = function (e) {
+                    preview.setAttribute('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+
+}
