@@ -37,7 +37,7 @@ namespace Task8.Controllers
             {
                 // When passed in as a string
                 //Calling API Key of Clarifai
-                var Client = new ClarifaiClient("apikey");
+                var Client = new ClarifaiClient("apikeys");
 
                 // When using async/await, via bytes
                 // Using Clarifai to Predict and Get Taggings.
@@ -47,7 +47,7 @@ namespace Task8.Controllers
                     {
                         new ClarifaiFileImage(fileData)
                     },
-                    "apikey")
+                    "apikeys")
                 .ExecuteAsync();
 
                 //Check if response is successful or not.

@@ -21,7 +21,7 @@ namespace Task8.Controllers
         public async Task<IHttpActionResult> ImageToText()
         {
             // Add your Computer Vision subscription key and endpoint to your environment variables.
-            var subscriptionKey = "fbee94cc73be4773b736f1e2364e2170";
+            var subscriptionKey = "subscriptionkey";
 
             // An endpoint should have a format like "https://westus.api.cognitive.microsoft.com"
             var endpoint = "https://csctask8.cognitiveservices.azure.com/";
@@ -133,7 +133,7 @@ namespace Task8.Controllers
         public async Task<IHttpActionResult> ImageToTextOCR()
         {
             // Add your Computer Vision subscription key and endpoint to your environment variables.
-            var subscriptionKey = "f0219c2bfa7f4012879cefd629250760";
+            var subscriptionKey = "subscriptionkey";
 
             // An endpoint should have a format like "https://westus.api.cognitive.microsoft.com"
             var endpoint = "https://csc-task8.cognitiveservices.azure.com";
